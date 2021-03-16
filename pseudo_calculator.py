@@ -21,20 +21,49 @@ Consider the following URL/Response body pairs as tests:
 
 """
 
+def is_positive(args):
+    """
+    Return the result of whether args is positive.
+    """
+    try:
+        if int(args[0:]) > 0:
+            body = 'true'
+        else:
+            body = 'false'
+    except ValueError:
+        raise NameError
+    return body
+
+def is_negative(args):
+    """
+    Return the result of whether args is negative.
+    """
+    try:
+        if int(args[0:]) < 0:
+            body = 'true'
+        else:
+            body = 'false'
+    except ValueError:
+        raise NameError
+    return body
+
 def resolve_path(path):
     """
     Should return two values: a callable and an iterable of
     arguments, based on the path.
     """
 
-    # TODO: Provide correct values for func and args. The
-    # examples provide the correct *syntax*, but you should
-    # determine the actual values of func and args using the
-    # path.
-    func = some_func
-    args = ['25', '32']
+    handlers = {
+        'positive': is_positive,
+        'negative': is_negative
+    }
 
-    return func, args
+    path = path.strip('/').split('/')
+    try:
+        return handlers[path[0]], path[1:]
+    except KeyError:
+        raise NameError
+    raise NotImplementedError
 
 def application(environ, start_response):
     headers = [('Content-type', 'text/html')]

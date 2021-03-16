@@ -10,7 +10,13 @@ def book(book_id):
 
 
 def books():
-    return "<h1>a list of books</h1>"
+    body = '<h1>Book List</h1>'
+    for book in DB.titles():
+        body += '\n<h3><a href="/book/{}">{}</a></h3>'.format(
+            book['id'],
+            book['title']
+        )
+    return body
 
 
 def resolve_path(path):

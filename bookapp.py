@@ -13,11 +13,21 @@ def books():
     return "<h1>a list of books</h1>"
 
 
+def resolve_path(path):
+    handlers = {
+        '': books,
+        'book': book
+    }
+    path = path.strip('/').split('/')
+    return handlers[path[0]](*path[1:])
+
+
 def application(environ, start_response):
     status = "200 OK"
     headers = [('Content-type', 'text/html')]
     start_response(status, headers)
-    return ["<h1>No Progress Yet</h1>".encode('utf8')]
+
+    return [resolve_path(environ.get('PATH_INFO')).encode('utf8')]
 
 
 if __name__ == '__main__':

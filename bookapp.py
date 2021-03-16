@@ -12,7 +12,7 @@ def book(book_id):
 def books():
     body = '<h1>Book List</h1>'
     for book in DB.titles():
-        body += '\n<h3><a href="/book/{}">{}</a></h3>'.format(
+        body += '\n<b><a href="/book/{}">{}</a></b><br />'.format(
             book['id'],
             book['title']
         )

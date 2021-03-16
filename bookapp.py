@@ -19,7 +19,10 @@ def resolve_path(path):
         'book': book
     }
     path = path.strip('/').split('/')
-    return handlers[path[0]](*path[1:])
+    try:
+        return handlers[path[0]](*path[1:])
+    except KeyError:
+        raise NameError
 
 
 def application(environ, start_response):

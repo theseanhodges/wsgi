@@ -6,7 +6,20 @@ DB = BookDB()
 
 
 def book(book_id):
-    return "<h1>a book with id %s</h1>" % book_id
+    body = '<h1>Book Info: {}</h1>'.format(book_id)
+    book_info = DB.title_info(book_id)
+    if book_info is None:
+        raise NameError
+    else:
+        body += """
+<b>Title:</b> {title}<br />
+<b>Author:</b> {author}<br />
+<b>Publisher:</b> {publisher}<br />
+<b>ISBN:</b> {isbn}<br />
+""".format(**book_info)
+
+    return body
+
 
 
 def books():

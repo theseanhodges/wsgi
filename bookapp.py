@@ -23,6 +23,7 @@ def resolve_path(path):
         return handlers[path[0]], path[1:]
     except KeyError:
         raise NameError
+    raise NotImplementedError
 
 
 def application(environ, start_response):
